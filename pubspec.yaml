@@ -1,0 +1,24 @@
+name: looking_of_sun_web
+description: "Um novo projeto Flutter para rastrear os horários do nascer e pôr do sol."
+
+publish_to: 'none' # Não será publicado no pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  intl: ^0.20.2 # Atualizado
+  http: ^1.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0 # Atualizado
+
+flutter:
+  uses-material-design: true

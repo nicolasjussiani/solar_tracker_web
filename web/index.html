@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Seção 1: Configurações Básicas -->
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Um novo projeto Flutter para rastrear os horários do nascer e pôr do sol.">
+
+  <!-- Seção 2: Metadados e Ícones -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="looking_of_sun_web">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <!-- Seção 3: Título e Manifest -->
+  <title>looking_of_sun_web</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Seção 4: Script de Geolocalização -->
+  <script type="text/javascript">
+    function getLocation() {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+
+              const data = {
+                  coords: {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                  }
+                }
+              window.postMessage(data, "*");
+              resolve(data);
+            },
+            (error) => {
+               const data = {
+                  error: error.message,
+                }
+              window.postMessage(data, "*");
+              reject(data);
+            }
+          );
+        } else {
+          const data = {
+                  error: "Geolocation is not supported by this browser.",
+                }
+              window.postMessage(data, "*");
+          reject(data);
+        }
+      });
+    }
+  </script>
+
+  <!-- Seção 5: Service Worker Version -->
+  <script>
+    // Injeção do Flutter durante o build
+    const serviceWorkerVersion = "{{flutter_service_worker_version}}";
+  </script>
+
+  <!-- Seção 6: Inclusão do Bootstrap -->
+  <script src="flutter_bootstrap.js" defer></script>
+
+  <!-- Seção 7: Inclusão do Flutter -->
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+<!-- Seção 8: Inicialização do Flutter -->
+<script>
+  window.addEventListener('load', function(ev) {
+    _flutter.loader.load({
+      serviceWorker: {
+        serviceWorkerVersion: serviceWorkerVersion,
+      },
+    });
+  });
+</script>
+</body>
+</html>
